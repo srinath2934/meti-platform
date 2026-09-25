@@ -1,11 +1,11 @@
 # METI — Modus Enterprise Talent Intelligence
-
+`
 > **Evidence-led consulting intelligence.** A full-stack platform for management consulting assessment, capability benchmarking, and AI-powered career development.
-
+`
 ---
-
+`
 ## Stack
-
+`
 | Layer | Technology |
 |-------|-----------|
 | **Frontend** | React 19 · TypeScript · Vite · Tailwind CSS v4 · ShadCN UI |
@@ -13,11 +13,11 @@
 | **AI Agents** | LangGraph · Azure OpenAI |
 | **Storage** | PostgreSQL · Neo4j · Azure Blob · Redis |
 | **Infrastructure** | Docker Compose · Azure Container Apps |
-
+`
 ---
-
+`
 ## Monorepo Structure
-
+`
 ```
 meti-platform/
 ├── frontend/                    → React/Vite application
@@ -68,60 +68,60 @@ meti-platform/
 ├── docker-compose.yml           → Full-stack orchestration
 └── package.json                 → Monorepo root scripts
 ```
-
+`
 ---
-
+`
 ## Quick Start
-
+`
 ### Prerequisites
 - Node.js 20+
 - Python 3.12+
 - pnpm (`npm i -g pnpm`)
-
+`
 ### 1. Install dependencies
-
+`
 ```bash
 # Frontend
 cd frontend && pnpm install
-
+`
 # Backend
 cd backend
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
-
+`
 ### 2. Configure environment
-
+`
 ```bash
 cp .env.example .env
 # Edit .env with your API keys
 ```
-
+`
 ### 3. Run from monorepo root
-
+`
 ```bash
 # Frontend dev server → http://localhost:5173
 npm run dev:frontend
-
+`
 # Backend API server → http://localhost:8000
 npm run dev:backend
-
+`
 # Run backend tests
 npm run test:backend
 ```
-
+`
 ### 4. Full stack with Docker
-
+`
 ```bash
 docker-compose up --build
 ```
-
+`
 ---
-
+`
 ## Available Scripts
-
+`
 From the monorepo root (`package.json`):
-
+`
 | Command | Action |
 |---------|--------|
 | `npm run dev` | Start frontend dev server |
@@ -130,71 +130,77 @@ From the monorepo root (`package.json`):
 | `npm run build:frontend` | Production frontend build |
 | `npm run test:backend` | Pytest backend suite |
 | `npm run capture:local` | Generate local UI screenshots |
-
+`
 ---
-
+`
 ## Full System Architecture
-
+`
 ### Component Architecture Diagram
-
-`mermaid
+`
+````mermaid
 graph TD
-    subgraph Client [Frontend Client Experience - React 19 and Vite]
-        P1[1. Real Resume Intake - Profile]
-        P2[2. Dynamic AI Dilemmas - Assessment]
-        P3[3. Priority Strategic Trade-Offs]
-        P4[4. Multimodal AI Video Studio]
-        P5[5. Executive Case Workspace]
-        P6[6. Assessor Desk Evaluation]
-        P7[7. Findings Radar Dossier]
+    subgraph ClientLayer ["🖥️ Frontend Client Layer (React 19 · Vite · Tailwind v4)"]
+        P1["1. Real Resume Intake (/profile)<br/>• Drag-and-drop PDF/DOCX<br/>• Real-time CV Extraction"]
+        P2["2. Dynamic AI Dilemmas (/assessment)<br/>• Tailored C-Suite Dilemmas<br/>• Live Option Choice & Hypothesis"]
+        P3["3. AI Counter-Probe Injection<br/>• Edge-Case Stress Testing<br/>• Cognitive Blind-Spot Challenge"]
+        P4["4. Priority Strategic Trade-Offs<br/>• 4-Initiative Strategic Matrix<br/>• Executive Ambiguity Calibration"]
+        P5["5. Multimodal Video Studio (/video)<br/>• 1080p WebRTC MediaStream<br/>• Real-Time Speech-to-Text & WPM<br/>• Composure & Gaze Variance"]
+        P6["6. Executive Case Workspace (/case)<br/>• Meridian Retail Case Exhibits<br/>• Financial Variance Modeling<br/>• Strategic Recommendations Memo"]
+        P7["7. Assessor Desk Portal (/evaluator)<br/>• Multi-Competency Rubric Scoring<br/>• Blind Double-Grading Synthesis"]
+        P8["8. Findings Dossier & Roadmap (/app)<br/>• 4-Axis Competency Radar Chart<br/>• 16-Week Leadership Roadmap"]
     end
-
-    subgraph AI [Dual-Engine AI Gateway - Sub-300ms Routing]
-        Router{AI Model Router}
-        Groq[Groq Engine - gpt-oss-120b]
-        Grok[xAI Grok Engine - grok-2]
-        Nvidia[NVIDIA NIM - llama-3.2-11b]
-        Whisper[Groq Whisper - Audio Engine]
+`
+    subgraph AIOrchestration ["⚡ High-Velocity Dual-Engine AI Gateway"]
+        Router{"AI Model Router<br/>(Sub-300ms Failover)"}
+        Groq["🚀 Primary: Groq Engine<br/>• openai/gpt-oss-120b<br/>• Sub-300ms High-Velocity Inference"]
+        Grok["🧠 Frontier: xAI Grok-2<br/>• High-Acuity C-Suite Reasoning"]
+        Nvidia["🛡️ Fallback: NVIDIA NIM<br/>• meta/llama-3.2-11b-vision<br/>• Zero-Downtime Enterprise Engine"]
+        Whisper["🎙️ Speech: Groq Whisper<br/>• whisper-large-v3-turbo<br/>• Real-Time Transcription & WPM"]
     end
-
-    subgraph Backend [Core FastAPI Services - Python 3.12]
-        Gateway[REST API Gateway]
-        CandidateSvc[Candidate Profile Service]
-        BrainSvc[Adaptive Brain Engine]
-        VideoSvc[Video Speech Evaluation Service]
-        ScoreSvc[Competency Scoring Engine]
+`
+    subgraph BackendCore ["⚙️ Core FastAPI Services (Python 3.12)"]
+        Gateway["REST API Gateway (/api/v1)"]
+        CandidateSvc["Candidate Profile & Context Service"]
+        BrainSvc["Adaptive Brain Dynamic Engine"]
+        VideoSvc["Video Telemetry & Speech Service"]
+        ScoreSvc["Competency Scoring & Calibration Engine"]
     end
-
-    subgraph Storage [Data and Telemetry Persistence]
-        DB[(Supabase PostgreSQL Database)]
-        Cache[(Session and LocalStorage Cache)]
+`
+    subgraph StorageLayer ["💾 Persistence & Telemetry Layer"]
+        DB[("PostgreSQL Database (Supabase)<br/>• Candidate Profiles & Scores<br/>• Rubric Calibration Weights")]
+        Telemetry[("Session & LocalStorage Cache<br/>• Real-time Video Telemetry<br/>• Cached Adaptive Dilemma")]
     end
-
+`
+    %% Client to Gateway
     P1 --> Router
     P2 --> Router
     P3 --> Router
     P4 --> Router
-    P4 --> Whisper
-    P4 --> VideoSvc
-
+    P5 --> Whisper
+    P5 --> VideoSvc
+`
+    %% Router to Models
     Router --> Groq
     Router --> Grok
     Router --> Nvidia
-
+`
+    %% Client to Backend
     P1 --> CandidateSvc
     P2 --> BrainSvc
-    P5 --> Gateway
-    P6 --> ScoreSvc
-
+    P6 --> Gateway
+    P7 --> ScoreSvc
+    P8 --> ScoreSvc
+`
+    %% Backend to Database
     CandidateSvc --> DB
     BrainSvc --> DB
     ScoreSvc --> DB
-    Client -.-> Cache
+    ClientLayer -.-> Telemetry
+```
 `
-
 ### Universal Architecture Map (High-Acuity Fallback)
-
 `
+```text
 +-----------------------------------------------------------------------------------+
 |                        METI END-TO-END ARCHITECTURE MAP                           |
 +-----------------------------------------------------------------------------------+
@@ -239,27 +245,27 @@ graph TD
 |  |  - Competency Radar Synthesizer       - Free MVP Entitlement Engine         |  |
 |  +-----------------------------------------------------------------------------+  |
 +-----------------------------------------------------------------------------------+
+```
 `
-
 ---
-
+`
 ## Candidate Adaptive Evaluation Journey Map
-
-`mermaid
-flowchart LR
-    S1[1. Resume Intake: Real CV Parsed] --> S2[2. Adaptive Dilemma: Dynamic C-Suite Case]
-    S2 --> S3[3. AI Counter-Probe: Blind-Spot Challenge]
-    S3 --> S4[4. Strategic Trade-Offs: Operating Initiatives]
-    S4 --> S5[5. Multimodal Video: Oral Defense and Cadence]
-    S5 --> S6[6. Case Workspace: Meridian Retail Memo]
-    S6 --> S7[7. Findings Dossier: Radar Chart and Roadmap]
 `
-
+````mermaid
+flowchart LR
+    S1["1. Resume Intake<br/>(Real CV Parsed)"] --> S2["2. Adaptive Dilemma<br/>(Dynamic C-Suite Case)"]
+    S2 --> S3["3. AI Counter-Probe<br/>(Blind-Spot Challenge)"]
+    S3 --> S4["4. Strategic Trade-Offs<br/>(Operating Initiatives)"]
+    S4 --> S5["5. Multimodal Video<br/>(Oral Defense & Cadence)"]
+    S5 --> S6["6. Case Workspace<br/>(Meridian Retail Memo)"]
+    S6 --> S7["7. Findings Dossier<br/>(Radar Chart & Roadmap)"]
+```
+`
 ---
-
+`
 ## 16-Week Dynamic Development Roadmap
-
-`mermaid
+`
+````mermaid
 gantt
     title METI 16-Week Executive Leadership Acceleration Roadmap
     dateFormat YYYY-MM-DD
@@ -277,21 +283,21 @@ gantt
     Boardroom Governance         :s8, after s7, 14d
     CapEx Valuation Synthesis    :s9, after s8, 14d
     Partner Certification Review :milestone, s10, after s9, 0d
+```
 `
-
 | Phase | Duration | Core Competencies | Deliverables and Milestones |
 | :--- | :--- | :--- | :--- |
 | **Phase 1: Diagnostic & Structuring** | Weeks 1-4 | Problem Structuring and Pyramid Principle | Baseline Diagnostic Report and Recommendation memos |
 | **Phase 2: Commercial & Operational Depth** | Weeks 5-8 | Unit Economics and Operating Models and MECE | Financial trade-off matrix and CapEx allocation memo |
 | **Phase 3: Executive Persuasion & Poise** | Weeks 9-12 | Oral Defense and Composure and Cadence Control | 3 Video briefing recordings evaluated by AI |
 | **Phase 4: C-Suite Governance & Board Mastery** | Weeks 13-16 | Board Governance and Counterparty Management | Final Partner Readiness Dossier & Certification |
-
+`
 ---
-
+`
 ## Executive Design System & Color Psychology (CEO Presentation Guide)
-
+`
 > **Core Objective for the CEO:** Why did we choose Deep Pine, Teal, Sage, Mint, and Off-White over standard corporate blue and grey?
-
+`
 | Color Token | Hex Code | Visual Metaphor | Executive Emotion & Psychological Justification |
 | :--- | :--- | :--- | :--- |
 | **Deep Pine** | #0B3B36 | Boardroom Mahogany & Fiduciary Trust | Evokes the gravitas of a tier-1 strategy firm (McKinsey, BCG, Bain). Replaces cold corporate black with an organic, authoritative dark tone that communicates longevity, risk management, and fiduciary stability. |
@@ -299,16 +305,16 @@ gantt
 | **Sage / Slate** | #52796F | Deliberative Equilibrium & Neutrality | Used for analytical labels, supporting rubrics, and secondary context. Eliminates cognitive clutter, inducing calm focus during high-pressure cognitive decision-making. |
 | **Mint Accent** | #BCE8D7 | Growth, Momentum & Affirmation | Represents affirmative milestone achievement and capability mastery. Used on positive signals, verified badges, and forward-looking developmental milestones. |
 | **Off-White Canvas** | #F8FAFB | Premium Executive Bond Paper | Stark #FFFFFF creates glare and cognitive fatigue during 45-minute analytical assessments. #F8FAFB provides a museum-grade reading surface with 12.8:1 contrast ratio that feels tactile, calm, and premium. |
-
+`
 ### Strategic Defense Against Competitor Palettes:
 1. **Why not standard SaaS Blue (#0066FF)?** Commodity SaaS and social media have saturated generic blue. It feels like a software utility rather than an elite executive advisory firm.
 2. **Why not dark mode black (#000000)?** Harsh dark modes simulate developer terminals or gaming suites. A partner assessing an Associate Director expects institutional polish and high-legibility document structures.
 3. **The Neurological Result:** The METI palette lowers candidate cortisol during high-stakes assessments, encouraging authentic problem-solving rather than performative panic.
-
+`
 ---
-
+`
 ## Key Documents
-
+`
 | Document | Purpose |
 |----------|---------|
 | [Business Requirements](docs/BUSINESS_REQUIREMENTS.md) | Commercial model, stakeholder requirements, KPIs |
@@ -316,29 +322,29 @@ gantt
 | [Frontend Architecture](docs/FRONTEND_ARCHITECTURE.md) | Screen map S01–S16, form registry, component specs |
 | [Data Models & Agents](docs/DATA_MODEL_AND_AGENTS.md) | PostgreSQL DDL, Neo4j ontology, agent catalog (A01–A20) |
 | [TDD v1.1 PDF](docs/assets/METI_Management_Consulting_Assessment_TDD_v1.1%20(2)%20(3).pdf) | Original design specification |
-
+`
 ---
-
+`
 ## Commercial Products
-
+`
 | Product | Price | Deliverable |
 |---------|-------|-------------|
 | Professional Personality & Values Assessment | $120 | Talent DNA · Schwartz values · Development themes |
 | Management Consulting Assessment | $150 | MECE scoring · Case analysis · Consulting capability report |
 | Full Intelligence Report + Roadmap | $250 | 25–40 page report · 16-week roadmap · AI explainer |
-
+`
 ---
-
+`
 ## Testing
-
+`
 ```bash
 # Backend — 9 integration tests
 cd backend && .venv\Scripts\pytest.exe -v
-
+`
 # Frontend — TypeScript type check
 cd frontend && pnpm run check
 ```
-
+`
 ---
-
+`
 *Built for the MODUS Hackathon · September 2026*
