@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.models.candidate import Candidate, CandidateProfile
+from app.models.candidate import Candidate, CandidateProfile, Entitlement
 from app.models.attempt import Attempt
 from app.models.case import CaseAttempt
 from app.models.score import ScoreRecord, Roadmap
@@ -173,3 +173,75 @@ def parse_candidate_resume(
         "evidence_weight": 0.25,
         "candidate": candidate
     }
+
+
+@router.post("/profile-context")
+def save_profile_context(payload: dict, db: Session = Depends(get_db)):
+    """
+    Next-Gen Profile Ingestion & Baseline Calibration:
+    Captures candidate industry domain, seniority level, experience years, and skills.
+    Automatically provisions free administrative product entitlements (MC-A, D250, PV-A).
+    """
+    candidate = db.query(Candidate).first()
+    if not candidate:
+        candidate = Candidate(
+            id="cand_sarah_jenkins",
+            email=payload.get("email", "sarah.jenkins@modus-talent.com"),
+            display_name=payload.get("display_name", "Sarah Jenkins"),
+            status="ACTIVE",
+            target_role=payload.get("target_role", "Engagement Manager - Financial Services Practice")
+        )
+        db.add(candidate)
+        db.flush()
+
+    if payload.get("display_name"):
+        candidate.display_name = payload["display_name"]
+    if payload.get("email"):
+        candidate.email = payload["email"]
+    if payload.get("target_role"):
+        candidate.target_role = payload["target_role"]
+
+    profile = candidate.profile
+    if not profile:
+        profile = CandidateProfile(candidate_id=candidate.id)
+        db.add(profile)
+        db.flush()
+
+    profile.current_role = payload.get("current_role") or profile.current_role or "Senior Strategy Consultant"
+    profile.target_level = payload.get("target_level") or profile.target_level or "Engagement Manager / Project Leader"
+    profile.experience_years = payload.get("experience_years", 6)
+    profile.education = payload.get("education") or profile.education or "M.S. Financial Engineering, Columbia University"
+    profile.location = payload.get("location") or profile.location or "London / New York"
+    profile.skills = payload.get("skills", ["Card Schemes", "Real-Time Payments (A2A)", "Payment Rails", "Target Operating Model"])
+    if payload.get("linkedin_url"):
+        profile.linkedin_url = payload["linkedin_url"]
+
+    # Auto-grant product entitlements (MC-A, D250, PV-A) under admin_grant
+    active_entitlements = db.query(Entitlement).filter(Entitlement.candidate_id == candidate.id).all()
+    existing_codes = {e.product_code for e in active_entitlements}
+    for code in ["MC-A", "D250", "PV-A"]:
+        if code not in existing_codes:
+            ent = Entitlement(
+                id=f"ent_{code.lower()}_{candidate.id}",
+                candidate_id=candidate.id,
+                product_code=code,
+                status="ACTIVE",
+                source="admin_grant"
+            )
+            db.add(ent)
+
+    db.commit()
+    db.refresh(candidate)
+
+    return {
+        "status": "PROFILE_CALIBRATED",
+        "candidate_id": candidate.id,
+        "display_name": candidate.display_name,
+        "target_role": candidate.target_role,
+        "industry": payload.get("industry", "FinTech & Payments"),
+        "seniority_level": payload.get("seniority_level", "Engagement Manager"),
+        "experience_years": profile.experience_years,
+        "skills": profile.skills,
+        "entitlements": ["MC-A", "D250", "PV-A"]
+    }
+

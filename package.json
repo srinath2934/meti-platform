@@ -1,27 +1,17 @@
 {
-  "name": "meti-consulting-assessment",
-  "private": true,
+  "name": "meti-enterprise-platform",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
+  "description": "METI: Modus Enterprise Talent Intelligence Platform (Full-Stack Monorepo)",
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 5173",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@supabase/server": "^1.8.0",
-    "@supabase/supabase-js": "^2.49.1",
-    "lucide-react": "^0.475.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.28",
-    "tailwindcss": "^3.4.19",
-    "vite": "^5.4.14"
+    "dev": "npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && .venv\\Scripts\\uvicorn.exe app.main:app --reload --port 8000",
+    "build:frontend": "cd frontend && npm run build",
+    "check:frontend": "cd frontend && npm run check",
+    "test:backend": "cd backend && .venv\\Scripts\\pytest.exe",
+    "test:frontend": "cd frontend && npm run check",
+    "capture:local": "cd screenshot_runner && node local_capture.js",
+    "capture:smartui": "cd screenshot_runner && npx smartui exec -- node capture.js"
   }
 }

@@ -17,6 +17,7 @@ class Candidate(Base, TimestampMixin, TenantMixin):
     # Relationships
     profile = relationship("CandidateProfile", back_populates="candidate", uselist=False, cascade="all, delete-orphan")
     consents = relationship("Consent", back_populates="candidate", cascade="all, delete-orphan")
+    entitlements = relationship("Entitlement", back_populates="candidate", cascade="all, delete-orphan")
     attempts = relationship("Attempt", back_populates="candidate")
     case_attempts = relationship("CaseAttempt", back_populates="candidate")
     score_records = relationship("ScoreRecord", back_populates="candidate")
@@ -49,3 +50,16 @@ class Consent(Base, TimestampMixin):
     granted_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     candidate = relationship("Candidate", back_populates="consents")
+
+
+class Entitlement(Base, TimestampMixin):
+    __tablename__ = "entitlements"
+
+    id = Column(String(64), primary_key=True, default=lambda: f"ent_{uuid.uuid4().hex[:12]}")
+    candidate_id = Column(String(64), ForeignKey("candidates.id"), nullable=False)
+    product_code = Column(String(50), nullable=False)  # MC-A, D250, PV-A
+    status = Column(String(50), default="ACTIVE", nullable=False)  # ACTIVE, EXPIRED, REVOKED
+    source = Column(String(50), default="admin_grant", nullable=False)
+
+    candidate = relationship("Candidate", back_populates="entitlements")
+

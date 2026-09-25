@@ -23,12 +23,25 @@ const urls = [
   await page.setViewport({ width: 1440, height: 900 });
 
   const primaryOutDir = path.join(__dirname, 'screenshots');
+  const rootOutDir = path.join(__dirname, '..', 'screenshots');
   const artifactOutDir = 'C:\\Users\\SRINATH\\.gemini\\antigravity-ide\\brain\\f70288c6-75cf-4879-8145-fd77a97aaa59\\screenshots';
 
-  for (const dir of [primaryOutDir, artifactOutDir]) {
+  for (const dir of [primaryOutDir, rootOutDir, artifactOutDir]) {
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir, { recursive: true });
     }
+  }
+
+  // Clear obsolete files from local screenshot directories so only clean official captures remain
+  for (const dir of [primaryOutDir, rootOutDir]) {
+    const existing = fs.readdirSync(dir);
+    for (const file of existing) {
+      const filePath = path.join(dir, file);
+      if (fs.statSync(filePath).isFile() && file.endsWith('.png')) {
+        fs.unlinkSync(filePath);
+      }
+    }
+    console.log(`Cleared local directory: ${dir}`);
   }
 
   for (const item of urls) {
@@ -38,10 +51,12 @@ const urls = [
       await new Promise(r => setTimeout(r, 2500));
       
       const file1 = path.join(primaryOutDir, `${item.name}.png`);
-      const file2 = path.join(artifactOutDir, `${item.name}.png`);
+      const file2 = path.join(rootOutDir, `${item.name}.png`);
+      const file3 = path.join(artifactOutDir, `${item.name}.png`);
       
       await page.screenshot({ path: file1, fullPage: true });
       fs.copyFileSync(file1, file2);
+      fs.copyFileSync(file1, file3);
       
       console.log(`Saved screenshot to:`);
       console.log(` -> ${file1}`);

@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Semantic surfaces & foregrounds */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Modus Enterprise Brand Palette */
+  --color-pine: #0B3B36;              /* Structural anchor & headings */
+  --color-pine-dark: #062320;         /* Deepest contrast */
+  --color-teal: #0E8F91;              /* Primary Modus interaction */
+  --color-teal-dark: #0A7476;         /* Hover state */
+  --color-teal-soft: #E3F3F1;         /* Badges & selected cards */
+  --color-mint: #0E8F91;              /* Synced with Modus Teal */
+  --color-mint-subtle: #E3F3F1;       /* Synced soft tint */
+  --color-body: #172321;              /* Deep ink for long reading */
+  --color-slate: #52796F;             /* Subheadings & denominator (/ 100) */
+  --color-slate-muted: #64748B;       /* Captions & inactive tabs */
+  --color-gold: #C58A32;              /* Accreditation & benchmark highlights */
+  --color-gold-soft: #FDF5E8;         /* Gold milestone badge background */
+  --color-success: #10B981;           /* Dedicated autosave & pass beacon */
+  --color-ivory: #F8FAFB;             /* Base canvas background */
+
+  /* Radius & Shadows */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --shadow-card: 0 4px 20px rgba(11, 59, 54, 0.05);
+  --shadow-card-hover: 0 12px 30px rgba(11, 59, 54, 0.09);
+  --shadow-deep: 0 20px 50px rgba(11, 59, 54, 0.15);
+  --shadow-mint: 0 8px 24px rgba(14, 143, 145, 0.22);
+}
+
+:root {
+  --radius: 0.85rem;
+  --background: #F8FAFB;
+  --foreground: #0B3B36;
+  --card: #FFFFFF;
+  --card-foreground: #0B3B36;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B3B36;
+  --primary: #0E8F91;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E3F3F1;
+  --secondary-foreground: #0B3B36;
+  --muted: #EDF3F2;
+  --muted-foreground: #52796F;
+  --accent: #FDF5E8;
+  --accent-foreground: #845C1D;
+  --destructive: #B54747;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0E8F91;
+  --sidebar: #0B3B36;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #0E8F91;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #114B45;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.14);
+  --sidebar-ring: #0E8F91;
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  color: #172321;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(14, 143, 145, 0.35);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  color: #0E8F91;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Modus Brand Mark */
+.meti-mark {
+  position: relative;
+  display: grid;
+  height: 38px;
+  width: 38px;
+  place-items: center;
+  border-radius: 12px;
+  background: #0E8F91;
+  box-shadow: 0 0 0 5px rgba(14, 143, 145, 0.18);
+}
+
+.meti-mark span {
+  position: absolute;
+  display: block;
+  width: 6px;
+  border-radius: 3px;
+  background: #FFFFFF;
+  transform: rotate(26deg);
+}
+
+.meti-mark span:first-child {
+  height: 24px;
+  left: 10px;
+  top: 7px;
+}
+
+.meti-mark span:last-child {
+  height: 18px;
+  left: 21px;
+  top: 11px;
+  opacity: 0.8;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  aside,
+  nav,
+  header,
+  .print\:hidden,
+  button,
+  .fixed {
+    display: none !important;
+  }
+  
+  body, html, main {
+    background: #FFFFFF !important;
+    color: #172321 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .shadow-card, .shadow-sm, .shadow-md, .shadow-lg {
+    box-shadow: none !important;
+    border: 1px solid #CBD5E1 !important;
+  }
+}

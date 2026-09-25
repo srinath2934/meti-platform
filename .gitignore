@@ -1,42 +1,46 @@
 # Dependencies
 node_modules/
-*/node_modules/
-client/node_modules/
-screenshot_runner/node_modules/
-meti-executive-transformation/node_modules/
+**/node_modules/
+.pnpm-store/
 
-# Environment & secrets
-.env
-.env.local
-*.env
-
-# Build outputs
+# Build & Dist
 dist/
 build/
-*/dist/
-meti-executive-transformation/dist/
+.next/
+out/
+*.tsbuildinfo
 
-# Logs & temp files
-*.log
-.smartui.log
-screenshot_runner/.smartui.log
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
 
-# OS & IDE
+# Python Cache & Virtual Environments
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyc
+*.egg-info/
+.venv/
+venv/
+
+# Heavy Documentation, Raw Specs & Archives
+docs/
+archive/
+rdmd/
+
+# Screenshots & Runner Cache
+screenshot_runner/
+screenshots/
+
+# System & IDE Files
 .DS_Store
 Thumbs.db
+*.log
 .vscode/
 .idea/
 
-# Archives
-*.zip
-*.tar.gz
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-.venv/
+# Temporary / Scratch scripts
+push.js
+push.ps1
+test-groq.js

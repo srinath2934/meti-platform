@@ -150,3 +150,31 @@ def get_adaptive_next_question(
         }
 
 
+@router.post("/adaptive-scenario")
+def generate_adaptive_scenario(payload: dict, db: Session = Depends(get_db)):
+    """
+    Next-Gen Adaptive Brain:
+    Synthesizes a high-stakes, domain-calibrated consulting dilemma on-the-fly
+    calibrated to the candidate's exact CV experience and industry domain.
+    """
+    from app.services.adaptive_brain import AdaptiveBrain
+    scenario = AdaptiveBrain.generate_scenario(payload)
+    return scenario
+
+
+@router.post("/adaptive-probe")
+def generate_adaptive_probe(payload: dict, db: Session = Depends(get_db)):
+    """
+    Next-Gen Adaptive Brain Probe:
+    Dynamically analyzes candidate's hypothesis and issues a real-time blind spot probe
+    challenging their specific risk assumptions and trade-offs.
+    """
+    from app.services.adaptive_brain import AdaptiveBrain
+    scenario = payload.get("scenario", {})
+    candidate_approach = payload.get("candidate_approach", "")
+    selected_option_id = payload.get("selected_option_id")
+    probe = AdaptiveBrain.generate_probe(scenario, candidate_approach, selected_option_id)
+    return probe
+
+
+
