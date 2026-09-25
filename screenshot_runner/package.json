@@ -1,0 +1,17 @@
+{
+  "name": "screenshot_runner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@lambdatest/puppeteer-driver": "^1.0.6",
+    "@lambdatest/smartui-cli": "^4.1.85",
+    "puppeteer": "^25.12.0"
+  }
+}

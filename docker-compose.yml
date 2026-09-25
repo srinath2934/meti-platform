@@ -1,0 +1,52 @@
+services:
+  db:
+
+    image: postgres:16-alpine
+    container_name: meti_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: meti_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - meti_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d meti_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - meti_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: meti_fastapi_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/meti_db
+      - APP_ENV=development
+      - APP_PORT=8000
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - meti_network
+
+volumes:
+  meti_postgres_data:
+    driver: local
+
+networks:
+  meti_network:
+    driver: bridge
